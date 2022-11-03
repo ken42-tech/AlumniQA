@@ -11,7 +11,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import java.util.logging.*;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,9 +24,10 @@ import com.opencsv.CSVReader;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 public class Alumni_portal {
-    public static WebDriver driver;
+   
+	public static WebDriver driver;
 	static int time = 1000;
-	//private static final Exception Exception = null;
+	private static final Exception Exception = null;
     public static Logger log = Logger.getLogger("App_portal");
 
 
@@ -34,17 +37,21 @@ public class Alumni_portal {
 
         boolean append = false;
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-        CSV_PATH = "C:\\Users\\Public\\Documents\\App.csv";
-        logFileName = String.format("C:\\Users\\Public\\Documents\\Application_Test_results%s.HTML", timeStamp);
+		if(Utils.checkWindowsOs()) {
+			CSV_PATH = "C:\\Users\\Public\\Documents\\App.csv";
+			logFileName = String.format("C:\\Users\\Public\\Documents\\Application_Test_results%s.HTML", timeStamp);
+
+		}else{
+			logFileName = String.format("/users/Shared/Testresult_%s.HTML", timeStamp);
+		}
+        log.info("found csv file");
         FileHandler logFile = new FileHandler(logFileName, append);
         logFile.setFormatter(new MyHtmlFormatter());
         log.addHandler(logFile);
 		CSVReader csvReader;
 		int count = 0;
 		csvReader = new CSVReader(new FileReader(CSV_PATH));
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
 	
 		String[] csvCell;
 		while ((csvCell = csvReader.readNext()) != null) {
@@ -64,41 +71,110 @@ public class Alumni_portal {
 			String phoneNumber=csvCell[7];
 			String year=csvCell[8];
 			String programmeName=csvCell[9];
+			String From = csvCell[10];
+            String To = csvCell[11];
+			String Sfurl=csvCell[12];
 			
-		
-            log.info("**********************Testing for  Portal  "+url);
-			driver.get(url);
-			driver.manage().window().maximize();
+			int from = Integer.parseInt(From);
+			int to = Integer.parseInt(To);
+			initDriver(browser, url);
+			log.info("**********************Testing for  Portal  "+url);
+			// Below If will execute all Student related test cases
+			for(int i=from;i<=to;i++){  
+				switch (i){
+					case 1:Alumni.testValidateEmail(driver, Email);//tc-1
+					break;
+					case 2:Alumni.testValidationFirstName(driver);//tc-2
+					break;
+					case 3:Alumni.testValidateLastName(driver, lName);//tc-3
+					break;
+					case 4:Alumni.testAppLogin(Sfurl, driver, Email, csvCell);//tc-4
+					break;
+					case 5:Alumni.testHome(driver, Sfurl, csvCell);;
+					break;
+					case 6:Alumni.TestEvent(driver, Sfurl, csvCell);//tc-6
+					break;
+					case 7:Alumni.TestJobs(driver, Sfurl, csvCell);//tc-7
+					break;
+					case 8:Alumni.TestLogout(Sfurl, driver, csvCell);//tc-8
+					break;					
+					case 9:Alumni.TestVerificationBackend(url	,driver, csvCell);//tc-9
+					break;
+					case 10: Alumni.testSignup(url, driver, fname, mName, lName, Email, phoneNumber, year, programmeName);//tc-10
+					break;
 
-			
-            // Alumni.testValidateEmail(driver, email);
-			// Alumni.testValidationFirstName(driver);
-			
-	
-		 	//Alumni.testSignup(url, driver, fname, mName, lName, email, phoneNumber, year, programmeName);
-			
-			Alumni.testAppLogin(url, driver, Email);//tc-1
-			Alumni.testHome(driver);
-			Alumni.TestEvent(driver);
-			Alumni.TestJobs(driver);
-			Alumni.TestLogout(url, driver);
-			//Alumni.testSignup(url, driver, fname, mName, lName, phoneNumber, year, programmeName);
-			((JavascriptExecutor)driver).executeScript("window.open()");
-        ArrayList<String> tabs4565 = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs4565.get(1));
-		driver.get("https://test.salesforce.com/");
+				}
+			}
+			log.info("***************** COMPLETED TESTTING OF PORTAL" + url);
+		}
 		
-		// ((JavascriptExecutor)driver).executeScript("window.open()");
-        // ArrayList<String> tabs4566 = new ArrayList<String>(driver.getWindowHandles());
-        // driver.switchTo().window(tabs4566.get(2));
-		// driver.get("https://test.salesforce.com/");
-		
-		Alumni.TestVerificationBackend(Email, driver, Email, Email);
+		log.info("***************** COMPLETED TESTTING OF PORTAL" );
 			SendMail.sendEmail(logFileName);
-        
-    }
+	}
+				
+				
+    
+	@BeforeMethod
+	public static void initDriver(String Browser, String url) throws Exception {
+		String ChromeDriver = "";
+		String EdgeDriver = "";
+		String FirefoxDriver = "";
+		if (Utils.checkWindowsOs()) {
+			ChromeDriver = "C:\\Users\\Public\\Documents\\chromedriver.exe";
+			EdgeDriver = "C:\\Users\\Public\\Documents\\msedgedriver.exe";
+			FirefoxDriver = "C:\\Users\\Public\\Documents\\geckodriver.exe";
+		} else {
+			ChromeDriver = "Users/shared/chromedriver.exe";
+			EdgeDriver = "Users/shared/msedgedriver.exe";
+			FirefoxDriver = "Users/shared/geckodriver.exe";
+		}
+
+		System.out.println("Browser is " + Browser);
+		System.out.println("URL is " + url);
+		try {
+			System.out.println("Browser is ****" + Browser);
+			System.out.println("URL is " + url);
+			if ("chrome".equals(Browser)) {
+				System.setProperty("webdriver.chrome.driver", ChromeDriver);
+				ChromeOptions op = new ChromeOptions();
+				op.addArguments("--disable-notifications");
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver(op);
+				driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+				driver.manage().window().maximize();
+
+			} else if ("edge".equals(Browser)) {
+				System.setProperty("webdriver.edge.driver", EdgeDriver);
+				driver = new EdgeDriver();
+				driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			} else if ("firefox".equals(Browser)) {
+				System.setProperty("webdriver.edge.driver", FirefoxDriver);
+				FirefoxOptions fx = new FirefoxOptions();
+				fx.addArguments("--disable-notifications");
+				WebDriverManager.firefoxdriver().setup();
+				driver = new FirefoxDriver(fx);
+				driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+			} else if ("safari".equals(Browser)) {
+				driver = new SafariDriver();
+				driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+				driver.get(url);
+				driver.manage().window().maximize();
+
+			}
+			driver.get(url);
+		} catch (Exception e) {
+			log.warning("UNABLE TO LAUNCH BROWSER \n\n\n");
+			System.exit(01);
+		}
+	}
+@AfterMethod
+	public static void quitDriver(String Url) throws Exception {
+		// log.info("Completed testing of portal" + Url);
+		log.info("\n");
+		driver.quit();
+	}
 }
-}
+
 
 
 

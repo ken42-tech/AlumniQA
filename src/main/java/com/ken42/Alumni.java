@@ -41,7 +41,7 @@ public static void testValidateEmail(WebDriver driver,String email) throws Excep
     Utils.clickXpath(driver, ActionXpath.emialMsg, time, "Email message ");
     if(softAssert != null){
         
-        System.out.println("hardAssert Method Was Executed");
+        System.out.println("softAssert Method Was Executed");
     }else{
       log.warning("failed check Alpha numeric value");
     }
@@ -116,7 +116,7 @@ log.info("Tc:1 The Validate Email validation test passed");
 
    }
 
-@Test
+@Test(priority = 3)
 public static boolean lastName( String lastName ) {
     return lastName.matches( "[A-Z][a-z]*" );
 
@@ -129,11 +129,13 @@ public static boolean lastName( String lastName ) {
     System.out.println(lastName("hanks"));
  }
 
-    @Test(priority = 1)
-	public static void testAppLogin(String url,WebDriver driver, String Email) throws Exception {
+    @Test(priority = 4)
+	public static void testAppLogin(String url,WebDriver driver, String Email,String[] csvCell) throws Exception {
         try {
+            String alurl=csvCell[0];
+            driver.get(alurl);  
             Thread.sleep(3000);
-            System.out.println("TC-1: Starting Alumini Login  test case execution ");
+            System.out.println("TC-3: Starting Alumini Login  test case execution ");
             Utils.clickXpath(driver, ActionXpath.login, time, "Login click");
             Utils.callSendkeys(driver, ActionXpath.InputEmail, Email, "Pass the Email");
             Utils.clickXpath(driver, ActionXpath.SignIn, time, "Click On sign in");
@@ -142,17 +144,19 @@ public static boolean lastName( String lastName ) {
             Utils.smallSleepBetweenClicks(3);
             Thread.sleep(50000);
             Utils.clickXpath(driver, ActionXpath.Verifylogin, time, "Verify the login ");
-            log.info("  TC-1: Alumni login test case PASSED \n");
+            log.info("  TC-4: Alumni login test case PASSED \n");
 
         } catch (Exception e) {
             Thread.sleep(time);
 
-			log.warning("TC-1: Alumini login test case FAILED \n");
+			log.warning("TC-4: Alumini login test case FAILED \n");
 		}
 }
-@Test(priority = 2)
-public static void testHome(WebDriver driver) throws Exception{
+@Test(priority = 5)
+public static void testHome(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
+        String alurl=csvCell[0];
+        driver.get(alurl); 
         System.out.println("home Tab Checking test executaion ");
         Utils.clickXpath(driver, ActionXpath.openDrawer, time, "open drawer");
         Thread.sleep(2000);
@@ -160,20 +164,22 @@ public static void testHome(WebDriver driver) throws Exception{
         	String p = l.getText();
 			if (p.contains("Alumni Corner") && p.contains("Alumni of the Month") 
 			&& p.contains("Job Openings") && p.contains("Events & Update") && p.contains("Updates")){
-				log.info(" TC-2:  Home tab contain all Tab test case PASSED \n\n");
+				log.info(" TC-5:  Home tab contain all Tab test case PASSED \n\n");
 			}else {
-				log.warning(" TC-2:  Home tab test case FAILED it does not contain all the tabs\n\n");
+				log.warning(" TC-5:  Home tab test case FAILED it does not contain all the tabs\n\n");
 			}
-            log.info("TC-2: Home Alumni Test case PASSED \n");
+            log.info("TC-4: Home Alumni Test case PASSED \n");
 		} catch (Exception e) {
 			Thread.sleep(time);
-			log.warning("TC-2: Home  Alumini Test case FAILED \n");
+			log.warning("TC-4: Home  Alumini Test case FAILED \n");
 		}
     }
 
-    @Test(priority = 3)
-public static void TestEvent(WebDriver driver) throws Exception{
+    @Test(priority = 6)
+public static void TestEvent(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
+        String alurl=csvCell[0];
+        driver.get(alurl);
         System.out.println("Event tab Tesr executation Started");
         Utils.clickXpath(driver, ActionXpath.ClickEvent, time, "Click on the Event");
         Utils.callSendkeys(driver, ActionXpath.searchEvent, "Alumni Meet 2023", null);
@@ -181,53 +187,60 @@ public static void TestEvent(WebDriver driver) throws Exception{
        
                 Utils.clickXpath(driver, ActionXpath.ClickKnowMorw, time, "Click on know more");
                 Utils.bigSleepBetweenClicks(2);
-                 log.info("TC-3: Event View Test Case PASSED \n");
+                 log.info("TC-6: Event View Test Case PASSED \n");
                 } catch (Exception e) {
                     Thread.sleep(time);
 
-                    log.warning("TC-3: Event View Test Case Test Case FAILED \n");
+                    log.warning("TC-6: Event View Test Case Test Case FAILED \n");
                 }
 }
-@Test(priority = 4)
-public static void TestJobs(WebDriver driver) throws Exception{
+@Test(priority = 7)
+public static void TestJobs(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
+        String alurl=csvCell[0];
+        driver.get(alurl);
         System.out.println("JObs tab Tesr executation Started");
         Utils.clickXpath(driver, ActionXpath.clickJob, time, "Click on job tab");
         Utils.clickXpath(driver, ActionXpath.clickKnow, time, "know more");
         Utils.smallSleepBetweenClicks(3);
-log.info("TC-4: JOBS View Test Case PASSED \n");
+log.info("TC-7: JOBS View Test Case PASSED \n");
                 } catch (Exception e) {
                     Thread.sleep(time);
 
-                    log.warning("TC-4: JOBS View Test Case Test Case FAILED \n");
+                    log.warning("TC-7: JOBS View Test Case Test Case FAILED \n");
                 }
 }
-@Test(priority = 5)
-public static void TestLogout(String url ,WebDriver driver) throws InterruptedException{
+@Test(priority = 8)
+public static void TestLogout(String url ,WebDriver driver,String[] csvCell) throws InterruptedException{
     System.out.println("Logout tab Tesr executation Started");
     try{
+        String alurl=csvCell[0];
+        driver.get(alurl);
         Utils.logout(url, driver);
 
-        log.info("TC-5: Logout View Test Case PASSED \n");
+        log.info("TC-8: Logout View Test Case PASSED \n");
+        
     } catch (Exception e) {
         Thread.sleep(time);
 
-        log.warning("TC-5: Logout View Test Case Test Case FAILED \n");
+        log.warning("TC-8: Logout View Test Case Test Case FAILED \n");
     }
 }
-@Test(priority = 6)
-public static void TestVerificationBackend(String SfUrl,WebDriver driver,String username,String password) throws Exception{
+@Test(priority = 9)
+public static void TestVerificationBackend(String SfUrl,WebDriver driver,String[] csvCell) throws Exception{
     try{
         System.out.println("salesforce login tab Test executation Started");
-       Utils.callSendkeys(driver, ActionXpath.EnterUSer, "implementations@ken42.com.nitte.nittenew", "enter the username");
-       Utils.callSendkeys(driver, ActionXpath.EnterPassword, "vQBcDRFtgz5VR23cDbGaVbAWzfcsfqD2","entert the password");
-       Utils.clickXpath(driver, ActionXpath.LoginSlaesforce, time, "click the login salesforce");
+     
+    String Url=csvCell[12];
+    driver.get(Url);
+
+     Utils.salesforce_login(SfUrl, driver, null);
        Thread.sleep(3000);
        Utils.clickXpath(driver, ActionXpath.clickHomeE, time, "Click Home Exapnad To search obj");
        Utils.callSendkeys(driver, ActionXpath.searchobj, "Students/Faculties", "Pass the Object which need ot search");
        Utils.clickXpath(driver, ActionXpath.clickStudentFaculities, time, "click on the Student faculities");
        Thread.sleep(3000);
-       Utils.callSendkeys(driver, ActionXpath.Searchalumni, "spruti", password);
+       Utils.callSendkeys(driver, ActionXpath.Searchalumni, "spruti", "enter name");
        Actions qwe = new Actions(driver);
          qwe.moveByOffset(40, 40).click().perform();
          Utils.clickXpath(driver, ActionXpath.clickOnName, time, "Select the name");
@@ -239,19 +252,19 @@ public static void TestVerificationBackend(String SfUrl,WebDriver driver,String 
          Utils.clickXpath(driver, ActionXpath.clikOnimg, time, "Click on the profile");
          Utils.clickXpath(driver, ActionXpath.logoutSalesforce, time, "Click on logout salesforce");
          
-       log.info("TC-6: salesforceVerifiucation Test Case PASSED \n");
+       log.info("TC-9: salesforceVerifiucation Test Case PASSED \n");
     }catch(Exception e){
         Thread.sleep(time);
 
-        log.warning("TC-6: salesforceVerifiucation Test Case FAILED \n");
+        log.warning("TC-9: salesforceVerifiucation Test Case FAILED \n");
     }
 
 }
 
-@Test(priority = 7)
+@Test(priority = 10)
 public static void testSignup(String url ,WebDriver driver,String fname,String mName,String lName,String email,String phoneNumber,String year,String programmeName) throws Exception{
     try{
-        System.out.println("Tc-7 Signup from NSOM exexuting started....");
+        System.out.println("Tc-10 Signup from NSOM exexuting started....");
         Utils.clickXpath(driver, ActionXpath.ClickOnRegisterNow, time, "click on the Register now to Signup ");
        
         Utils.callSendkeys(driver, ActionXpath.EnterFname, fname, "Enter the First name");
@@ -265,12 +278,12 @@ public static void testSignup(String url ,WebDriver driver,String fname,String m
         Utils.clickXpath(driver, ActionXpath.ClickOnproOpen, time, "Click on the programe drop down to open ");
        Utils.clickXpath(driver, ActionXpath.EnterPrograme, time, "Select the Programe ");
         Utils.clickXpath(driver, ActionXpath.ClickOnVerify, time, "Click on verify Button");
-        log.info("TC-7: Signup From  Test Case PASSED \n");
+        log.info("TC-10: Signup From  Test Case PASSED \n");
 
     }catch(Exception e){
         Thread.sleep(time);
 
-        log.warning("TC-7: Signup From  Test Case FAILED \n");
+        log.warning("TC-10: Signup From  Test Case FAILED \n");
 
 }
 }

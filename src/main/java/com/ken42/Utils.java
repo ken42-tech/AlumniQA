@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.mail.Flags;
@@ -55,7 +56,7 @@ public class Utils {
 			}
 		}
 	}
-    private static void printException(Exception e) {
+    static void printException(Exception e) {
         log.warning("Exception is  "+e);
 
     }
@@ -156,6 +157,21 @@ public class Utils {
 			}
 		}
 	}
+	@Test
+
+    public static void salesforce_login(String sal_url, WebDriver driver, String[] csvCell) throws Exception {
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		ArrayList<String> tab = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tab.get(1));
+
+        String username		= csvCell[13];
+        String Password		= csvCell[14];
+
+		Utils.callSendkeys(driver, ActionXpath.EnterUSer, username, "enter the username");
+		Utils.callSendkeys(driver, ActionXpath.EnterPassword, Password,"entert the password");
+		Utils.clickXpath(driver, ActionXpath.LoginSlaesforce, time, "click the login salesforce");
+
+    }
 	}
 	
 
