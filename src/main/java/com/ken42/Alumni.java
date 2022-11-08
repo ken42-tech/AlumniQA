@@ -27,16 +27,18 @@ public class Alumni {
   
     public static Assertion assertArrayEquals;
     public static String emialMsg;
+    public static WebDriver driver;
     
     @Test(priority = 1)
-public static void testValidateEmail(WebDriver driver,String email) throws Exception{
+public static void testValidateEmail(WebDriver driver,String url) throws Exception{
 
   try{
-   
+   System.out.println("*****"+url);
+   System.out.println(driver);
    // Utils.clickXpath(driver, ActionXpath.ClickOnRegisterNow, time, "click on the Register now to Signup ");
     SoftAssert softAssert = new SoftAssert();
    
-    Utils.callSendkeys(driver, ActionXpath.vaildEmail, invlaidEmail1, email);
+    Utils.callSendkeys(driver, ActionXpath.vaildEmail, invlaidEmail1, "e");
     Utils.clickXpath(driver, ActionXpath.verify, time, "click on the VErify");
     Utils.clickXpath(driver, ActionXpath.emialMsg, time, "Email message ");
     if(softAssert != null){
@@ -132,8 +134,7 @@ public static boolean lastName( String lastName ) {
     @Test(priority = 4)
 	public static void testAppLogin(String url,WebDriver driver, String Email,String[] csvCell) throws Exception {
         try {
-            String alurl=csvCell[0];
-            driver.get(alurl);  
+           
             Thread.sleep(3000);
             System.out.println("TC-3: Starting Alumini Login  test case execution ");
             Utils.clickXpath(driver, ActionXpath.login, time, "Login click");
@@ -148,15 +149,14 @@ public static boolean lastName( String lastName ) {
 
         } catch (Exception e) {
             Thread.sleep(time);
-
+           // driver.get(url);  
 			log.warning("TC-4: Alumini login test case FAILED \n");
 		}
 }
 @Test(priority = 5)
 public static void testHome(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
-        String alurl=csvCell[0];
-        driver.get(alurl); 
+        driver.get(url); 
         System.out.println("home Tab Checking test executaion ");
         Utils.clickXpath(driver, ActionXpath.openDrawer, time, "open drawer");
         Thread.sleep(2000);
@@ -178,8 +178,7 @@ public static void testHome(WebDriver driver,String url,String[] csvCell) throws
     @Test(priority = 6)
 public static void TestEvent(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
-        String alurl=csvCell[0];
-        driver.get(alurl);
+        driver.get(url);
         System.out.println("Event tab Tesr executation Started");
         Utils.clickXpath(driver, ActionXpath.ClickEvent, time, "Click on the Event");
         Utils.callSendkeys(driver, ActionXpath.searchEvent, "Alumni Meet 2023", null);
@@ -197,8 +196,7 @@ public static void TestEvent(WebDriver driver,String url,String[] csvCell) throw
 @Test(priority = 7)
 public static void TestJobs(WebDriver driver,String url,String[] csvCell) throws Exception{
     try{
-        String alurl=csvCell[0];
-        driver.get(alurl);
+        driver.get(url);
         System.out.println("JObs tab Tesr executation Started");
         Utils.clickXpath(driver, ActionXpath.clickJob, time, "Click on job tab");
         Utils.clickXpath(driver, ActionXpath.clickKnow, time, "know more");
@@ -214,27 +212,26 @@ log.info("TC-7: JOBS View Test Case PASSED \n");
 public static void TestLogout(String url ,WebDriver driver,String[] csvCell) throws InterruptedException{
     System.out.println("Logout tab Tesr executation Started");
     try{
-        String alurl=csvCell[0];
-        driver.get(alurl);
+        driver.get(url);
         Utils.logout(url, driver);
 
         log.info("TC-8: Logout View Test Case PASSED \n");
         
     } catch (Exception e) {
         Thread.sleep(time);
+        Utils.printException(e);
 
         log.warning("TC-8: Logout View Test Case Test Case FAILED \n");
     }
 }
 @Test(priority = 9)
-public static void TestVerificationBackend(String SfUrl,WebDriver driver,String[] csvCell) throws Exception{
+public static void TestVerificationBackend(String url,WebDriver driver,String[] csvCell) throws Exception{
     try{
         System.out.println("salesforce login tab Test executation Started");
      
-    String Url=csvCell[12];
-    driver.get(Url);
-
-     Utils.salesforce_login(SfUrl, driver, null);
+        Utils.callSendkeys(driver, ActionXpath.EnterUSer, "implementations@ken42.com.nitte.nittenew", "enter the username");
+		Utils.callSendkeys(driver, ActionXpath.EnterPassword, "vQBcDRFtgz5VR23cDbGaVbAWzfcsfqD2","entert the password");
+		Utils.clickXpath(driver, ActionXpath.LoginSlaesforce, time, "click the login salesforce");
        Thread.sleep(3000);
        Utils.clickXpath(driver, ActionXpath.clickHomeE, time, "Click Home Exapnad To search obj");
        Utils.callSendkeys(driver, ActionXpath.searchobj, "Students/Faculties", "Pass the Object which need ot search");

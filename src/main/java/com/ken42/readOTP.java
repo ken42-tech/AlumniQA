@@ -136,7 +136,7 @@ public class readOTP {
 		String username = "sprutirajtest@gmail.com";
 		String password = "cgdizxcledbpwzxn";
 
-		// check(host, mailStoreType, username, password);
+		 //check(host, mailStoreType, username, password);
 
 	}
 }
