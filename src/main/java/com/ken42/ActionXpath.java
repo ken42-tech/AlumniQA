@@ -83,9 +83,6 @@ public class ActionXpath {
 
     static String submitrequest = "//button[.='Submit Request']";
 
-
-
-
     static String jobapply = "(//button[.='Apply'])[1]";
 
     static String uploadresume = "//input[@type='file']";
@@ -95,7 +92,7 @@ public class ActionXpath {
     static String postjob = "//button[.='Post a Jobs']";
 
     static String jobtitle = "//input[@id='fullWidth']";
-static String jobdesc = "//textarea[@id='fullWidth']";
+    static String jobdesc = "//textarea[@id='fullWidth']";
 
     static String jobloc = "(//div[@id='outlined-select-currency'])[1]";
 
@@ -122,17 +119,12 @@ static String jobdesc = "//textarea[@id='fullWidth']";
 
     static String send = "//button[.='Send']";
 
-
     static String namesearch = "//input[@type='text']";
 
-
-
-
+    static String namesearch1 = "//input[@type='text']";
 
     static String Support = "//span[.='Support']";
 
-
-    
     static String topic = "(//div[@id='outlined-select-currency'])[4]";
     static String Document = "//li[@data-value='Document type']";
     static String yourque = "//textarea[@id='outlined-multiline-static']";

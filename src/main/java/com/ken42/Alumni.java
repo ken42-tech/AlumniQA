@@ -303,7 +303,7 @@ public class Alumni {
     public static void TestAlumni(String url, WebDriver driver, String[] csvCell) throws Exception {
         try {
             System.out.println("Alumni tab Test executation Started");
-
+            System.out.println(" no changes");
             log.info("TC-9: Alumni Test Case PASSED \n");
         } catch (Exception e) {
             Thread.sleep(time);
