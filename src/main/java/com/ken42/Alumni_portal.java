@@ -82,46 +82,38 @@ public class Alumni_portal {
 			// Below If will execute all Student related test cases
 			for (int i = from; i <= to; i++) {
 				switch (i) {
+
 					case 1:
-						Alumni.testValidateEmail(driver, url);// tc-1
-						break;
+						Alumni.login(driver, Email, url, csvCell);
 					case 2:
-						Alumni.testValidationFirstName(driver);// tc-2
+						Alumni.testHome(driver, url, csvCell);
 						break;
 					case 3:
-						Alumni.testValidateLastName(driver, lName);// tc-3
+						Alumni.TestEvent(driver, url, csvCell);
 						break;
 					case 4:
-						Alumni.login(driver, Email, url, csvCell);
-					case 5:
-						Alumni.testHome(driver, url, csvCell);// tc-5
+						Alumni.TestJobs(driver, url, csvCell);
 						break;
+					case 5:
+						Alumni.testMentorships(url, driver, csvCell);
+						break;
+
 					case 6:
-						// Alumni.TestEvent(driver, url, csvCell);// tc-6
+						Alumni.TestAlumni(url, driver, csvCell);
 						break;
 					case 7:
-						Alumni.TestJobs(driver, url, csvCell);// tc-7
+						Alumni.testSupport(url, driver, csvCell);
 						break;
 					case 8:
-						Alumni.testMentorships(url, driver, csvCell);// tc-8
+						Alumni.testFundraise(url, driver, csvCell);
 						break;
 
 					case 9:
-						Alumni.TestAlumni(url, driver, csvCell);// tc-9
+						Alumni.testGroups(url, driver, csvCell);
 						break;
+
 					case 10:
-						Alumni.testSupport(url, driver, csvCell);// tc-10
-						break;
-					case 11:
-						Alumni.testFundraise(url, driver, csvCell);// tc-10
-						break;
-
-					case 12:
-						Alumni.testGroups(url, driver, csvCell);// tc-10
-						break;
-
-					case 13:
-						Alumni.testMarketplace(url, driver, csvCell);// tc-10
+						Alumni.testMarketplace(url, driver, csvCell);
 						break;
 
 				}

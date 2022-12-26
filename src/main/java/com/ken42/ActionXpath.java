@@ -75,7 +75,7 @@ public class ActionXpath {
 
     static String eventtopics = "(//input[@ id='fullWidth'])[2]";
 
-    static String clickonevent = "//div[@id='outlined-select-currency']";
+    static String clickonloc = "//div[@id='outlined-select-currency']";
 
     static String selectneventfordropdown = "//ul[@role='listbox']//li";
 
@@ -167,10 +167,17 @@ static String reason="//textarea[@id='fullWidth']";
 
     static String adddetail = "//button[.='Proceed to Add Details']";
     static String choosebutton = "//button[@id='simple-tab-0']";
+
+    static String cancel = "//button[.='Cancel']";
+
     static String groups = "//span[.='Groups']";
 
     static String donate = "(//button[.='Donate'])[1]";
-    static String creategroup = "//button[.='Create a Group']";
+    static String creategroup = "//button[.='Create a Group ››']";
+
+   
+
+
 
     static String groupname = "(//input[@id='fullWidth'])[1]";
     static String groupdiss = "(//input[@id='fullWidth'])[2]";
@@ -190,6 +197,9 @@ static String reason="//textarea[@id='fullWidth']";
     static String title = "//input[@id='fullWidth']";
 
     static String post = "//button[.='Post']";
+
+
+
     static String marketplace = "//span[.='Marketplace']";
 
     static String sapply = "(//button[.='Apply'])[1]";
