@@ -325,7 +325,7 @@ public class Alumni {
     @Test(priority = 10)
     public static void testSupport(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
-
+            // driver.get(url);
             String enterreq = csvCell[18];
             String req = csvCell[19];
             String format = csvCell[20];
@@ -343,16 +343,17 @@ public class Alumni {
 
             System.out.println("Tc-10 Support tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
-
+            Utils.smallSleepBetweenClicks(1);
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("wndow.scrollBy(0,2000)");
+            js.executeScript("window.scrollBy(0,2000)");
 
             Utils.clickXpath(driver, ActionXpath.topic, time, "click on topic ");
             Utils.clickXpath(driver, ActionXpath.Document, time, "click on Document ");
             Utils.callSendkeys(driver, ActionXpath.yourque, enterreq, "enter req");
             Utils.clickXpath(driver, ActionXpath.submitbuttonreq, time, "click on submitbuttonreq ");
-            js.executeScript("wndow.scrollBy(0,-2000)");
-            Utils.clickXpath(driver, ActionXpath.submitbuttonreq, time, "click on submitbuttonreq ");
+            js.executeScript("window.scrollBy(0,-4000)");
+            // Utils.clickXpath(driver, ActionXpath.submitbuttonreq, time, "click on
+            // submitbuttonreq ");
             Utils.smallSleepBetweenClicks(1);
             Utils.clickXpath(driver, ActionXpath.AddyourRequest, time, "click on AddyourRequest ");
 
