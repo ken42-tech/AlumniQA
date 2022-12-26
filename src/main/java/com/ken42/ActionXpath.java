@@ -153,10 +153,10 @@ static String reason="//textarea[@id='fullWidth']";
     static String address2 = "(//input[@id='fullWidth'])[4]";
     static String pin = "(//input[@id='fullWidth'])[5]";
 
-    static String country = "(//div[@id='outlined-select-currency'])[4]";
+    static String country = "(//div[@id='outlined-select-currency'])[3]";
 
-    static String state = "(//div[@id='outlined-select-currency'])[5]";
-    static String city = "(//div[@id='outlined-select-currency'])[6]";
+    static String state = "(//div[@id='outlined-select-currency'])[4]";
+    static String city = "(//div[@id='outlined-select-currency'])[5]";
 
     static String reqsub = "//button[.='Submit Request']";
     static String close = "//button[.='Close']";

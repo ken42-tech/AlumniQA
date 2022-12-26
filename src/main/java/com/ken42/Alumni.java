@@ -327,6 +327,20 @@ public class Alumni {
         try {
 
             String enterreq = csvCell[18];
+            String req = csvCell[19];
+            String format = csvCell[20];
+            String reason = csvCell[21];
+
+            String country = csvCell[22];
+            String state = csvCell[23];
+            String city = csvCell[24];
+
+            String phone = csvCell[25];
+            String emailreq = csvCell[26];
+            String address1 = csvCell[27];
+            String address2 = csvCell[28];
+            String pin = csvCell[29];
+
             System.out.println("Tc-10 Support tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
 
@@ -343,6 +357,46 @@ public class Alumni {
             Utils.clickXpath(driver, ActionXpath.AddyourRequest, time, "click on AddyourRequest ");
 
             Utils.clickXpath(driver, ActionXpath.requirment, time, "click on requirment");
+
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, req, driver);
+
+            Utils.clickXpath(driver, ActionXpath.requirment, time, "click on requirment");
+
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, req, driver);
+
+            Utils.clickXpath(driver, ActionXpath.formatreq, time, "click on formatreq");
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, format, driver);
+
+            Utils.callSendkeys(driver, ActionXpath.reason, reason, "enter reason");
+
+            driver.findElement(By.xpath("//input[@type='file']")).sendKeys("C:\\Users\\Public\\Documents\\demo.pdf");
+
+            Utils.callSendkeys(driver, ActionXpath.phone, phone, "enter phone");
+
+            Utils.callSendkeys(driver, ActionXpath.emailque, emailreq, "enter emailque");
+
+            Utils.callSendkeys(driver, ActionXpath.address1, address1, "enter address1");
+
+            Utils.callSendkeys(driver, ActionXpath.address2, address2, "enter address2");
+
+            Utils.callSendkeys(driver, ActionXpath.pin, pin, "enter pin");
+
+            Utils.clickXpath(driver, ActionXpath.country, time, "click on requirment");
+
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, country, driver);
+
+            Utils.clickXpath(driver, ActionXpath.state, time, "click on requirment");
+
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, state, driver);
+
+            Utils.clickXpath(driver, ActionXpath.city, time, "click on requirment");
+
+            Utils.selectFromDropDown(ActionXpath.selectneventfordropdown, city, driver);
+
+            Utils.clickXpath(driver, ActionXpath.reqsub, time, "click on reqsub");
+
+            Utils.smallSleepBetweenClicks(1);
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
 
             log.info("TC-10: Support tab  Test Case PASSED \n");
 

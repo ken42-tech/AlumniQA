@@ -97,7 +97,7 @@ public class Alumni_portal {
 						Alumni.testHome(driver, url, csvCell);// tc-5
 						break;
 					case 6:
-						Alumni.TestEvent(driver, url, csvCell);// tc-6
+						// Alumni.TestEvent(driver, url, csvCell);// tc-6
 						break;
 					case 7:
 						Alumni.TestJobs(driver, url, csvCell);// tc-7
