@@ -129,6 +129,23 @@ public class ActionXpath {
     static String Document = "//li[@data-value='Document type']";
     static String yourque = "//textarea[@id='outlined-multiline-static']";
     static String addrequest = "//button[.='Add your Request']";
+
+
+    static String submitbuttonreq="//button[.='SUBMIT']";
+
+    static String AddyourRequest="//button[.='Add your Request']";
+
+static String requirment="(//div[@id='outlined-select-currency'])[1]";
+
+static String  formatreq="(//div[@id='outlined-select-currency'])[2]";
+
+
+static String addreason="(//div[@id='outlined-select-currency'])[3]";
+
+static String reason="//textarea[@id='fullWidth']";
+
+
+
     static String uploadque = "//input[@type='file']";
     static String phone = "(//input[@id='fullWidth'])[1]";
     static String emailque = "(//input[@id='fullWidth'])[2]";
@@ -136,10 +153,10 @@ public class ActionXpath {
     static String address2 = "(//input[@id='fullWidth'])[4]";
     static String pin = "(//input[@id='fullWidth'])[5]";
 
-    static String country = "(//div[@id='outlined-select-currency'])[3]";
+    static String country = "(//div[@id='outlined-select-currency'])[4]";
 
-    static String state = "(//div[@id='outlined-select-currency'])[4]";
-    static String city = "(//div[@id='outlined-select-currency'])[5]";
+    static String state = "(//div[@id='outlined-select-currency'])[5]";
+    static String city = "(//div[@id='outlined-select-currency'])[6]";
 
     static String reqsub = "//button[.='Submit Request']";
     static String close = "//button[.='Close']";
