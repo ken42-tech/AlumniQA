@@ -64,7 +64,7 @@ public class Alumni_portal {
 			String url = csvCell[0];
 			String browser = csvCell[1];
 			String Email = csvCell[2];
-			//String password = csvCell[3];
+			// String password = csvCell[3];
 			String fname = csvCell[4];
 			String mName = csvCell[5];
 			String lName = csvCell[6];
@@ -103,14 +103,25 @@ public class Alumni_portal {
 						Alumni.TestJobs(driver, url, csvCell);// tc-7
 						break;
 					case 8:
-						//Alumni.TestLogout(url, driver, csvCell);// tc-8
+						Alumni.testMentorships(url, driver, csvCell);// tc-8
 						break;
 
 					case 9:
-						Alumni.TestVerificationBackend(url, driver, csvCell);// tc-9
+						Alumni.TestAlumni(url, driver, csvCell);// tc-9
 						break;
 					case 10:
-						Alumni.testSignup(url, driver, fname, mName, lName, Email, phoneNumber, year, programmeName);// tc-10
+						Alumni.testSupport(url, driver, csvCell);// tc-10
+						break;
+					case 11:
+						Alumni.testFundraise(url, driver, csvCell);// tc-10
+						break;
+
+					case 12:
+						Alumni.testGroups(url, driver, csvCell);// tc-10
+						break;
+
+					case 13:
+						Alumni.testMarketplace(url, driver, csvCell);// tc-10
 						break;
 
 				}

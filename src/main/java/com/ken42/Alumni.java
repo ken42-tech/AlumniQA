@@ -217,8 +217,17 @@ public class Alumni {
         try {
             driver.get(url);
             System.out.println("Event tab Tesr executation Started");
+            Utils.bigSleepBetweenClicks(2);
+            Utils.smallSleepBetweenClicks(1);
             Utils.clickXpath(driver, ActionXpath.ClickEvent, time, "Click on the Event");
-
+            Utils.clickXpath(driver, ActionXpath.hostnevent, time, "Click host event");
+            Utils.clickXpath(driver, ActionXpath.uploadeventcover, time, "Click host event");
+            Utils.callSendkeys(driver, ActionXpath.eventtitle, "Event title", "Enter the value event tittle");
+            Utils.callSendkeys(driver, ActionXpath.selectneventfordropdown, "Event title", "Select the dropdoen value");
+            Utils.callSendkeys(driver, ActionXpath.eventtopics, "Event title", "Enter the value event tittle");
+            Utils.callSendkeys(driver, ActionXpath.eventdescforalltextarea, "Event title",
+                    "Enter the value event tittle");
+            Utils.clickXpath(driver, ActionXpath.submitrequest, time, "Click the submit requestion");
             Utils.bigSleepBetweenClicks(2);
             log.info("TC-6: Event View Test Case PASSED \n");
         } catch (Exception e) {
@@ -314,8 +323,7 @@ public class Alumni {
     }
 
     @Test(priority = 10)
-    public static void testSupport(String url, WebDriver driver, String fname, String mName, String lName, String email,
-            String phoneNumber, String year, String programmeName) throws Exception {
+    public static void testSupport(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
             System.out.println("Tc-10 Support tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
@@ -330,5 +338,64 @@ public class Alumni {
             log.warning("TC-10: Support tab  Test Case FAILED \n");
 
         }
+
     }
+
+    @Test(priority = 11)
+    public static void testFundraise(String url, WebDriver driver, String csvCell[]) throws Exception {
+        try {
+            System.out.println("Tc-11 Fundraise tab exexuting started....");
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            log.info("TC-11: Fundraise tab  Test Case PASSED \n");
+
+        } catch (Exception e) {
+            Thread.sleep(time);
+
+            log.warning("TC-11: Fundraise tab  Test Case FAILED \n");
+
+        }
+
+    }
+
+    @Test(priority = 12)
+    public static void testGroups(String url, WebDriver driver, String csvCell[]) throws Exception {
+        try {
+            System.out.println("Tc-12 Groups tab exexuting started....");
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            log.info("TC-12: Groups tab  Test Case PASSED \n");
+
+        } catch (Exception e) {
+            Thread.sleep(time);
+
+            log.warning("TC-12: Groups tab  Test Case FAILED \n");
+
+        }
+
+    }
+
+    @Test(priority = 13)
+    public static void testMarketplace(String url, WebDriver driver, String csvCell[]) throws Exception {
+        try {
+            System.out.println("Tc-13 Marketplace tab exexuting started....");
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
+
+            log.info("TC-13: Marketplace tab  Test Case PASSED \n");
+
+        } catch (Exception e) {
+            Thread.sleep(time);
+
+            log.warning("TC-13: Marketplace tab  Test Case FAILED \n");
+
+        }
+
+    }
+
 }
