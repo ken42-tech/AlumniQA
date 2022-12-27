@@ -396,7 +396,7 @@ public class Alumni {
             js.executeScript("window.scrollBy(0,1000)");
 
             Utils.clickXpath(driver, ActionXpath.joingroup, time, "click on joingroup ");
-
+            js.executeScript("window.scrollBy(0,-2000)");
             Utils.clickXpath(driver, ActionXpath.gjoin, time, "click on gjoin ");
 
             log.info("TC-9: Groups tab  Test Case PASSED \n");
@@ -426,12 +426,12 @@ public class Alumni {
             Utils.clickXpath(driver, ActionXpath.marketplace, time, "click on marketplace ");
 
             log.info("TC-10: Marketplace tab  Test Case PASSED \n");
-
+            driver.quit();
         } catch (Exception e) {
             Thread.sleep(time);
 
             log.warning("TC-10: Marketplace tab  Test Case FAILED \n");
-            driver.quit();
+
         }
 
     }
