@@ -65,13 +65,7 @@ public class Alumni_portal {
 			String browser = csvCell[1];
 			String Email = csvCell[2];
 			// String password = csvCell[3];
-			String fname = csvCell[4];
-			String mName = csvCell[5];
-			String lName = csvCell[6];
 
-			String phoneNumber = csvCell[7];
-			String year = csvCell[8];
-			String programmeName = csvCell[9];
 			String From = csvCell[10];
 			String To = csvCell[11];
 
@@ -84,35 +78,39 @@ public class Alumni_portal {
 				switch (i) {
 
 					case 1:
-						Alumni.login(driver, Email, url, csvCell);
+						Alumni.signup(url, driver, csvCell, log);
+						break;
+
 					case 2:
+						Alumni.login(driver, Email, url, csvCell);
+					case 3:
 						Alumni.testHome(driver, url, csvCell);
 						break;
-					case 3:
+					case 4:
 						Alumni.TestEvent(driver, url, csvCell);
 						break;
-					case 4:
+					case 5:
 						Alumni.TestJobs(driver, url, csvCell);
 						break;
-					case 5:
+					case 6:
 						Alumni.testMentorships(url, driver, csvCell);
 						break;
 
-					case 6:
+					case 7:
 						Alumni.TestAlumni(url, driver, csvCell);
 						break;
-					case 7:
+					case 8:
 						Alumni.testSupport(url, driver, csvCell);
 						break;
-					case 8:
+					case 9:
 						Alumni.testFundraise(url, driver, csvCell);
 						break;
 
-					case 9:
+					case 10:
 						Alumni.testGroups(url, driver, csvCell);
 						break;
 
-					case 10:
+					case 11:
 						Alumni.testMarketplace(url, driver, csvCell);
 						break;
 

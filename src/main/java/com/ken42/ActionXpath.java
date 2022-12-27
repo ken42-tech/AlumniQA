@@ -130,21 +130,17 @@ public class ActionXpath {
     static String yourque = "//textarea[@id='outlined-multiline-static']";
     static String addrequest = "//button[.='Add your Request']";
 
+    static String submitbuttonreq = "//button[.='SUBMIT']";
 
-    static String submitbuttonreq="//button[.='SUBMIT']";
+    static String AddyourRequest = "//button[.='Add your Request']";
 
-    static String AddyourRequest="//button[.='Add your Request']";
+    static String requirment = "(//div[@id='outlined-select-currency'])[1]";
 
-static String requirment="(//div[@id='outlined-select-currency'])[1]";
+    static String formatreq = "(//div[@id='outlined-select-currency'])[2]";
 
-static String  formatreq="(//div[@id='outlined-select-currency'])[2]";
+    static String addreason = "(//div[@id='outlined-select-currency'])[3]";
 
-
-static String addreason="(//div[@id='outlined-select-currency'])[3]";
-
-static String reason="//textarea[@id='fullWidth']";
-
-
+    static String reason = "//textarea[@id='fullWidth']";
 
     static String uploadque = "//input[@type='file']";
     static String phone = "(//input[@id='fullWidth'])[1]";
@@ -175,10 +171,6 @@ static String reason="//textarea[@id='fullWidth']";
     static String donate = "(//button[.='Donate'])[1]";
     static String creategroup = "//button[.='Create a Group ››']";
 
-   
-
-
-
     static String groupname = "(//input[@id='fullWidth'])[1]";
     static String groupdiss = "(//input[@id='fullWidth'])[2]";
 
@@ -198,10 +190,24 @@ static String reason="//textarea[@id='fullWidth']";
 
     static String post = "//button[.='Post']";
 
-
-
     static String marketplace = "//span[.='Marketplace']";
 
     static String sapply = "(//button[.='Apply'])[1]";
     static String applynow = "//button[.='Apply Now ']";
+
+    //// .................................devken42 signup
+    //// xpath...........................................////
+
+    static String contact = "//p[.='Contact Admin']";
+    static String fname = "//input[@name='YourName']";
+    static String cemail = "//input[@name='ADDEMAIL']";
+
+    static String addphone = "//input[@name='ADDPHONENUMBER']";
+    static String addgraduation = "//input[@name='ADDGRADUATIONYEAR']";
+    static String reqaccess = "//button[@type='Submit']";
+
+    static String allvalidate = "//p[@id='mui-2-helper-text']";
+
+    static String validblank = "//p[@id='mui-3-helper-text']";
+
 }

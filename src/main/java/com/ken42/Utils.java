@@ -11,9 +11,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import java.util.Scanner;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,17 +68,43 @@ public class Utils {
 
 	}
 
-	public static void callSendkeys(WebDriver driver, String Xpath, String Value, String message)
-			throws Exception {
+	@Test
+	public static void goBackToHome(WebDriver driver, String url, Logger log) throws Exception {
+		try {
+			boolean alertPresent = false;
+			bigSleepBetweenClicks(1);
+			driver.navigate().to(url);
+			alertPresent = isAlertPresent(driver);
+			if (alertPresent) {
+				driver.switchTo().alert().accept();
+			}
+		} catch (Exception e) {
+			Utils.printException(e);
+			System.out.println("Failure in go back to");
+			log.warning("Failure in go back to home page");
+			logout(driver, url, "Role", log);
+			// driver.quit();
+		}
+
+	}
+
+	private static void logout(WebDriver driver, String url, String string, Logger log2) {
+	}
+
+	private static boolean isAlertPresent(WebDriver driver) {
+		return false;
+	}
+
+	public static void callSendkeys(WebDriver driver, String Xpath, String Value, String string) throws Exception {
 		int count = 0;
 		int maxTries = 4;
 		while (true) {
 			try {
 				log.info("Entering value" + Value);
-				Thread.sleep(1000);
+				Thread.sleep(250);
 				new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(By.xpath(Xpath)))
 						.sendKeys(Value);
-				Thread.sleep(500);
+				Thread.sleep(250);
 
 				break;
 			} catch (Exception e) {
@@ -92,6 +117,32 @@ public class Utils {
 			}
 		}
 	}
+
+	// public static void callSendkeys(WebDriver driver, String Xpath, Object email,
+	// String message)
+	// throws Exception {
+	// int count = 0;
+	// int maxTries = 4;
+	// while (true) {
+	// try {
+	// log.info("Entering value" + email);
+	// Thread.sleep(1000);
+	// new WebDriverWait(driver,
+	// 15).until(ExpectedConditions.elementToBeClickable(By.xpath(Xpath)))
+	// .sendKeys(email);
+	// Thread.sleep(500);
+
+	// break;
+	// } catch (Exception e) {
+	// Thread.sleep(250);
+	// log.warning("Failed to send value " + email);
+	// if (++count == maxTries) {
+	// Utils.printException(e);
+	// throw e;
+	// }
+	// }
+	// }
+	// }
 
 	@Test
 	public static void bigSleepBetweenClicks(int loop) throws InterruptedException {
@@ -141,13 +192,31 @@ public class Utils {
 
 	}
 
-
 	public static void selectFromDropDown(String listXpath, String choice, WebDriver driver) {
 		java.util.List<WebElement> list = driver.findElements(By.xpath(listXpath));
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getText().startsWith(choice)) {
 				list.get(i).click();
 				break;
+			}
+		}
+	}
+
+	@Test
+	public static String getTEXT(WebDriver driver, String xpath) throws Exception {
+		int count = 0;
+		int maxTries = 7;
+		String HtmlText = "";
+		while (true) {
+			try {
+				WebElement p = driver.findElement(By.xpath(xpath));
+				HtmlText = p.getText();
+				return HtmlText;
+			} catch (Exception e) {
+				Utils.smallSleepBetweenClicks(1);
+				if (++count > maxTries) {
+					throw (e);
+				}
 			}
 		}
 	}
@@ -228,5 +297,12 @@ public class Utils {
 
 			}
 		}
+	}
+
+	public static Object genrateRandomEmailid() {
+		return null;
+	}
+
+	public static void callSendkeys(WebDriver driver, String cemail, String value, Object email) {
 	}
 }

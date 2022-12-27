@@ -23,19 +23,85 @@ import junit.framework.Assert;
 public class Alumni {
     public static Logger log = Logger.getLogger("App_portal");
     static int time = 2000;
-    static String numbersOnly = "123";
-    static String SpecialCharacteronly = "%^%&@^&@^&@^&@^&@&";
-    static String fourtyoneCharacterlong = "fsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfsfs";
-    static String invlaidEmail1 = "a@gg.c";
-    static String invlaidEmail2 = "aa.c";
-    static String invlaidEmail3 = "aa@c";
-    static String invlaidEmail4 = "@cc.in";
 
     public static Assertion assertArrayEquals;
     public static String emialMsg;
     public static WebDriver driver;
 
     @Test(priority = 1)
+    public static void signup(String url, WebDriver driver, String[] csvCell, Logger log) {
+        driver.get(url);
+        String fname = csvCell[4];
+        String email = csvCell[5];
+        String pnumber = csvCell[6];
+        String gyear = csvCell[7];
+        String validation = csvCell[8];
+        try {
+            log.info("Tc-1:-Signup page  test case started");
+
+            Utils.clickXpath(driver, ActionXpath.contact, time, "click on contact");
+            if (validation.equals("TRUE")) {
+
+                validate.testForCharLength(driver, ActionXpath.fname, ActionXpath.allvalidate, log, 1);
+                Utils.smallSleepBetweenClicks(1);
+                Utils.cleartext(driver, ActionXpath.fname);
+                validate.specialcharacter(driver, ActionXpath.fname, ActionXpath.allvalidate, log);
+                Utils.cleartext(driver, ActionXpath.fname);
+
+            }
+            // Utils.cleartext(driver, ActionXpath.fname);
+
+            Utils.callSendkeys(driver, ActionXpath.fname, fname, "enter full name");
+
+            Utils.callSendkeys(driver, ActionXpath.cemail, email, "enter email");
+
+            if (validation.equals("TRUE")) {
+
+                validate.testForNumberLength(driver, ActionXpath.addphone, ActionXpath.allvalidate, log, 13);
+
+                Utils.cleartext(driver, ActionXpath.addphone);
+                validate.specialcharacter(driver, ActionXpath.addphone, ActionXpath.allvalidate, log);
+                Utils.cleartext(driver, ActionXpath.addphone);
+
+            }
+
+            Utils.callSendkeys(driver, ActionXpath.addphone, pnumber, "enter  name pnumber");
+            Utils.callSendkeys(driver, ActionXpath.addgraduation, gyear, "enter  name gyear");
+
+            Utils.clickXpath(driver, ActionXpath.reqaccess, time, "click on reqaccess");
+
+            Utils.cleartext(driver, ActionXpath.fname);
+
+            Utils.cleartext(driver, ActionXpath.cemail);
+            // WebElement ele1 =
+            // driver.findElement(By.xpath("//p[@id='mui-3-helper-text']"));
+            // String vali1 = ele1.getText();
+            // System.out.println(vali1);
+
+            Utils.cleartext(driver, ActionXpath.addphone);
+
+            Utils.cleartext(driver, ActionXpath.addgraduation);
+            // WebElement ele =
+            // driver.findElement(By.xpath("//p[@id='mui-3-helper-text']"));
+            // String vali = ele.getText();
+            // System.out.println(vali);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,2000)");
+            Utils.clickXpath(driver, ActionXpath.reqaccess, time, "click on reqaccess");
+            WebElement ele2 = driver.findElement(By.xpath("//p[@id='mui-3-helper-text']"));
+            String vali2 = ele2.getText();
+            System.out.println(vali2);
+            driver.navigate().refresh();
+            log.info("Tc1:-Signup page Passed");
+
+        } catch (Exception e) {
+            log.warning("Tc1:-Signup page  Failed");
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test(priority = 2)
 
     public static void login(WebDriver driver, String Email, String url, String csvCell[]) throws Exception {
         try {
@@ -79,41 +145,41 @@ public class Alumni {
             System.out.println(
                     "Sleeping after login for 7 seconds so that goBacktoHome function does not automatically logout user");
             Utils.bigSleepBetweenClicks(1);
-            log.info("TC1:- Alumin login test case passed");
+            log.info("TC2:- Alumin login test case passed");
         } catch (Exception e) {
             Thread.sleep(time);
             // driver.get(url);
-            log.warning("TC-1: Alumini login test case FAILED \n");
+            log.warning("TC-2: Alumini login test case FAILED \n");
         }
     }
 
-    @Test(priority = 2)
+    @Test(priority = 3)
     public static void testHome(WebDriver driver, String url, String[] csvCell) throws Exception {
         try {
             driver.get(url);
-            System.out.println("home Tab Checking test executaion ");
+            System.out.println("Tc-3:-home Tab Checking test executaion ");
             // Utils.clickXpath(driver, ActionXpath.openDrawer, time, "open drawer");
             Thread.sleep(3000);
             WebElement l = driver.findElement(By.tagName("body"));
             String p = l.getText();
             if (p.contains("Alumni Corner") && p.contains("Mentor Corner")
                     && p.contains("Top Events") && p.contains("Welcome Megha!")) {
-                log.info(" TC-2:  Home tab contain all Tab test case PASSED \n\n");
+                log.info(" TC-3:  Home tab contain all Tab test case PASSED \n\n");
             } else {
-                log.warning(" TC-2:  Home tab test case FAILED it does not contain all the tabs\n\n");
+                log.warning(" TC-3:  Home tab test case FAILED it does not contain all the tabs\n\n");
             }
-            log.info("TC-2: Home Alumni Test case PASSED \n");
+            log.info("TC-3: Home Alumni Test case PASSED \n");
         } catch (Exception e) {
             Thread.sleep(time);
-            log.warning("TC-2: Home  Alumini Test case FAILED \n");
+            log.warning("TC-3: Home  Alumini Test case FAILED \n");
         }
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public static void TestEvent(WebDriver driver, String url, String[] csvCell) throws Exception {
         try {
             driver.get(url);
-            System.out.println("Event tab Test executation Started");
+            System.out.println("Tc-4:-Event tab Test executation Started");
 
             String eventtitle = csvCell[34];
 
@@ -153,15 +219,15 @@ public class Alumni {
 
             Utils.clickXpath(driver, ActionXpath.done, time, "Click on done");
 
-            log.info("TC-3: Event View Test Case PASSED \n");
+            log.info("TC-4: Event View Test Case PASSED \n");
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-3: Event View Test Case Test Case FAILED \n");
+            log.warning("TC-4: Event View Test Case Test Case FAILED \n");
         }
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public static void TestJobs(WebDriver driver, String url, String[] csvCell) throws Exception {
         try {
             driver.get(url);
@@ -174,7 +240,7 @@ public class Alumni {
 
             String jobdesc = csvCell[16];
 
-            System.out.println("JObs tab Tesr executation Started");
+            System.out.println("Tc-5:- JObs tab Tesr executation Started");
             Utils.clickXpath(driver, ActionXpath.clickJob, time, "Click on job tab");
             Utils.clickXpath(driver, ActionXpath.jobapply, time, "jobapply");
 
@@ -198,17 +264,17 @@ public class Alumni {
 
             Utils.clickXpath(driver, ActionXpath.button, time, "click on submit");
             Utils.smallSleepBetweenClicks(3);
-            log.info("TC-4: JOBS View Test Case PASSED \n");
+            log.info("TC-5: JOBS View Test Case PASSED \n");
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-4: JOBS View Test Case Test Case FAILED \n");
+            log.warning("TC-5: JOBS View Test Case Test Case FAILED \n");
         }
     }
 
-    @Test(priority = 5)
+    @Test(priority = 6)
     public static void testMentorships(String url, WebDriver driver, String[] csvCell) throws InterruptedException {
-        System.out.println("Mentorships tab Tesr executation Started");
+        System.out.println("Tc:-6 Mentorships tab Tesr executation Started");
         try {
             driver.get(url);
             String mentortopic = csvCell[17];
@@ -223,36 +289,36 @@ public class Alumni {
             Utils.clickXpath(driver, ActionXpath.optin, time, "click on optin ");
             Utils.clickXpath(driver, ActionXpath.gotit, time, "click on gotit ");
             Utils.clickXpath(driver, ActionXpath.acceptreq, time, "click on accept request ");
-            log.info("TC-5: Mentorships View Test Case Test Case Passed \n");
+            log.info("TC-6: Mentorships View Test Case Test Case Passed \n");
         } catch (Exception e) {
             Thread.sleep(time);
             Utils.printException(e);
 
-            log.warning("TC-5: Mentorships View Test Case Test Case FAILED \n");
+            log.warning("TC-6: Mentorships View Test Case Test Case FAILED \n");
         }
     }
 
-    @Test(priority = 6)
+    @Test(priority = 7)
     public static void TestAlumni(String url, WebDriver driver, String[] csvCell) throws Exception {
         try {
-            System.out.println("Alumni tab Test executation Started");
+            System.out.println("Tc:-7 Alumni tab Test executation Started");
 
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,2000)");
 
-            log.info("TC-6: Alumni Test Case PASSED \n");
+            log.info("TC-7: Alumni Test Case PASSED \n");
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-6: Alumni Test Case FAILED \n");
+            log.warning("TC-7: Alumni Test Case FAILED \n");
         }
 
     }
 
-    @Test(priority = 7)
+    @Test(priority = 8)
     public static void testSupport(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
-            // driver.get(url);
+
             String enterreq = csvCell[18];
             String req = csvCell[19];
             String format = csvCell[20];
@@ -268,7 +334,7 @@ public class Alumni {
             String address2 = csvCell[28];
             String pin = csvCell[29];
 
-            System.out.println("Tc-10 Support tab exexuting started....");
+            System.out.println("Tc-8 Support tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
             Utils.smallSleepBetweenClicks(1);
             JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -276,6 +342,8 @@ public class Alumni {
 
             Utils.clickXpath(driver, ActionXpath.topic, time, "click on topic ");
             Utils.clickXpath(driver, ActionXpath.Document, time, "click on Document ");
+            Utils.smallSleepBetweenClicks(1);
+
             Utils.callSendkeys(driver, ActionXpath.yourque, enterreq, "enter req");
             Utils.clickXpath(driver, ActionXpath.submitbuttonreq, time, "click on submitbuttonreq ");
             js.executeScript("window.scrollBy(0,-4000)");
@@ -326,21 +394,21 @@ public class Alumni {
             Utils.smallSleepBetweenClicks(1);
             Utils.clickXpath(driver, ActionXpath.Support, time, "click on Support ");
 
-            log.info("TC-7: Support tab  Test Case PASSED \n");
+            log.info("TC-8: Support tab  Test Case PASSED \n");
 
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-7: Support tab  Test Case FAILED \n");
+            log.warning("TC-8: Support tab  Test Case FAILED \n");
 
         }
 
     }
 
-    @Test(priority = 8)
+    @Test(priority = 9)
     public static void testFundraise(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
-            System.out.println("Tc-8 Fundraise tab exexuting started....");
+            System.out.println("Tc-9 Fundraise tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.Fundraise, time, "click on Fundraise ");
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,600)");
@@ -352,18 +420,18 @@ public class Alumni {
 
             Utils.clickXpath(driver, ActionXpath.Fundraise, time, "click on Fundraise ");
 
-            log.info("TC-8: Fundraise tab  Test Case PASSED \n");
+            log.info("TC-9: Fundraise tab  Test Case PASSED \n");
 
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-8: Fundraise tab  Test Case FAILED \n");
+            log.warning("TC-9: Fundraise tab  Test Case FAILED \n");
 
         }
 
     }
 
-    @Test(priority = 9)
+    @Test(priority = 10)
     public static void testGroups(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
 
@@ -372,7 +440,7 @@ public class Alumni {
             String groupdis = csvCell[32];
             String groupdesc = csvCell[33];
 
-            System.out.println("Tc-9 Groups tab exexuting started....");
+            System.out.println("Tc-10 Groups tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.groups, time, "click on groups ");
 
             Utils.clickXpath(driver, ActionXpath.creategroup, time, "click on creategroup ");
@@ -399,21 +467,21 @@ public class Alumni {
             js.executeScript("window.scrollBy(0,-2000)");
             Utils.clickXpath(driver, ActionXpath.gjoin, time, "click on gjoin ");
 
-            log.info("TC-9: Groups tab  Test Case PASSED \n");
+            log.info("TC-10: Groups tab  Test Case PASSED \n");
 
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-9: Groups tab  Test Case FAILED \n");
+            log.warning("TC-10: Groups tab  Test Case FAILED \n");
 
         }
 
     }
 
-    @Test(priority = 10)
+    @Test(priority = 11)
     public static void testMarketplace(String url, WebDriver driver, String csvCell[]) throws Exception {
         try {
-            System.out.println("Tc-10 Marketplace tab exexuting started....");
+            System.out.println("Tc-11 Marketplace tab exexuting started....");
             Utils.clickXpath(driver, ActionXpath.marketplace, time, "click on marketplace ");
 
             Utils.clickXpath(driver, ActionXpath.sapply, time, "click on sapply ");
@@ -424,13 +492,13 @@ public class Alumni {
             Utils.clickXpath(driver, ActionXpath.clickonupload, time, "click on clickonupload ");
 
             Utils.clickXpath(driver, ActionXpath.marketplace, time, "click on marketplace ");
-
-            log.info("TC-10: Marketplace tab  Test Case PASSED \n");
             driver.quit();
+            log.info("TC-11: Marketplace tab  Test Case PASSED \n");
+
         } catch (Exception e) {
             Thread.sleep(time);
 
-            log.warning("TC-10: Marketplace tab  Test Case FAILED \n");
+            log.warning("TC-11: Marketplace tab  Test Case FAILED \n");
 
         }
 
